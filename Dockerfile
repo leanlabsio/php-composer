@@ -1,22 +1,28 @@
-FROM php:cli
+FROM gliderlabs/alpine:latest
 
-#RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Moscow/g' /etc/php/php.ini
+#RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Moscow/g' /etc/php.ini
 
-#RUN apk add php-openssl \
-#    && apk add php-phar \
-#    && apk add php-ctype \
-#    && apk add git \
-#    && apk add curl \
-#    && curl -sS https://getcomposer.org/installer | php \
-#    && mv composer.phar /usr/local/bin/composer 
+RUN apk update \
+    && apk add php-openssl \
+    && apk add php-phar \
+    && apk add php-ctype \
+    && apk add git \
+    && apk add curl \
+    && apk add php-json \
+    && curl -sS https://getcomposer.org/installer | php \
+    && mv composer.phar /usr/local/bin/composer \
+    && apk add inotify-tools \ 
+    && apk add php-dev
 
-RUN curl -sS https://getcomposer.org/installer | php \
-    && mv composer.phar /usr/local/bin/composer
+#RUN curl -sS https://getcomposer.org/installer | php \
+#    && mv composer.phar /usr/local/bin/composer
 
-RUN apt update \
-    && apt install -y zip \
-    && apt install -y git \
-    && apt install -y inotify-tools
+#RUN apt update \
+#    && apt install -y zip \
+#    && apt install -y git \
+#    && apt install -y inotify-tools
+
+RUN sed -i 's/\;date\.timezone\ \=/date\.timezone\ \=\ Europe\/Moscow/g' /etc/php/php.ini
 
 COPY composer.sh /tmp/composer.sh
 
