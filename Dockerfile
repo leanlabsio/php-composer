@@ -19,5 +19,7 @@ RUN apt update \
 
 COPY composer.sh /tmp/composer.sh
 
+ENTRYPOINT ["/bin/bash", "-c"]
+
 CMD ["/tmp/composer.sh"]
 
